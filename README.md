@@ -1,1 +1,2 @@
 # flixflex
+Movie app FlixFlex
