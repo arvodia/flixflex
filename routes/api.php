@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MoviesController;
 
 /*
   |--------------------------------------------------------------------------
@@ -23,3 +24,8 @@ Route::post('login', [AuthController::class, 'authenticate']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/account', [AuthController::class, 'currentUserInfo'])->name('account');
 });
+Route::get('/movies', [MoviesController::class, 'movies']);
+Route::get('/movie/{id}', [MoviesController::class, 'movie']);
+
+//Route::get('/series', [MoviesController::class, 'series']);
+//Route::get('/serie/{id}', [MoviesController::class, 'serie']);

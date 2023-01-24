@@ -13,6 +13,7 @@ import useUserStore from '../stores/user.js'
         // These can be imported from other files
 import Home from "../pages/Home.vue";
 import Films from "../pages/Films.vue";
+import Film from "../pages/Film.vue";
 import Series from "../pages/Series.vue";
 import Register from "../pages/Register.vue";
 import Login from "../pages/Login.vue";
@@ -22,16 +23,22 @@ import Favories from "../pages/Favories.vue";
 // Each route should map to a component.
 // We'll talk about nested routes later.
 const routes = [
+//    {
+//        path: "/",
+//        name: "Home",
+//        component: Home
+//    },
     {
         path: "/",
-        name: "Home",
-        component: Home
-    },
-    {
-        path: "/films",
         name: "Films",
         component: Films,
         alias: "/films"
+    },
+    {
+        path: "/film/:id",
+        props: true,
+        name: "Film",
+        component: Film,
     },
     {
         path: "/series",
