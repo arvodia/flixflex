@@ -44,6 +44,21 @@ class MoviesController extends Controller {
 
         $result = json_decode($json, true);
 
+        try {
+            $json = file_get_contents("https://api.themoviedb.org/3/movie/$id/videos?api_key=$key");
+            $data = json_decode($json, true);
+        } catch (Exception $exc) {
+            $data = ['results' => []];
+        }
+
+        $result['trailer'] = false;
+        foreach ($data['results'] as $values) {
+            if (($values['type'] ?? null) === 'Trailer' &&
+                    ($values['site'] ?? null) === 'YouTube') {
+                $result['trailer'] = $values['key'];
+            }
+        }
+
         $fav = Favories::where('tmdb_id', $id)->first();
         $result['is_favorie'] = $fav ? true : false;
         return response()->json($result, 200);
