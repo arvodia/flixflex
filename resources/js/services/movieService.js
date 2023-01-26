@@ -11,18 +11,19 @@ export default function useMovies() {
         let response = await apiPublic().get('/api/movie/' + id);
         movie.value = response.data;
     }
-    
+
     const addFavorie = async (id) => {
         let response = await apiPrivate().get('/api/favorie/' + id + '/add');
     }
-    
+
     const removeFavorie = async (id) => {
         let response = await apiPrivate().get('/api/favorie/' + id + '/remove');
     }
-    
-    const getMovies = async () => {
-        let response = await apiPublic().get('/api/movies');
-        movies.value = response.data.results;
+
+    const getMovies = async (page) => {
+        page = page ? page : 1;
+        let response = await apiPublic().get('/api/movies?page=' + page);
+        movies.value = response.data;
     }
 
     return {
