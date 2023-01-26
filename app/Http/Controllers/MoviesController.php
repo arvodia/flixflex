@@ -13,6 +13,30 @@ use function response;
 
 class MoviesController extends Controller {
 
+    public function top_movies(Request $request): JsonResponse {
+        $key = env('THEMOVIEDB_KEY');
+        try {
+            $json = file_get_contents("https://api.themoviedb.org/3/movie/top_rated?api_key=$key&language=fr-FR&page=1");
+            $result = json_decode($json, true);
+        } catch (Exception $exc) {
+            $result = ['results' => []];
+        }
+        $data = [];
+        foreach ($result['results'] ?? [] as $key => $values) {
+            if ($key > 5) {
+                break;
+            }
+            $data[$key] = [
+                'id' => $values['id'],
+                'title' => $values['title'],
+                'overview' => $values['overview'],
+                'poster_path' => $values['poster_path'],
+            ];
+        }
+        $result['results'] = $data;
+        return response()->json($result, 200);
+    }
+
     public function movies(Request $request): JsonResponse {
         $key = env('THEMOVIEDB_KEY');
         $page = $request->page ?: 1;

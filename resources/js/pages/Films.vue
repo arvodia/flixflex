@@ -1,7 +1,8 @@
 <template>
     <h1 class="text-xl p-3">Films</h1>
-    <div class="grid p-2 grid-cols-1 gap-1 md:grid-cols-3 md:gap-3">
 
+    <TopFilms/>
+    <div class="grid p-2 grid-cols-1 gap-1 md:grid-cols-3 md:gap-3">
         <div v-for="movie in movies.results" class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <img class="rounded-t-lg" :src="getImage(movie)" alt="" />
             <div class="p-5">
@@ -41,7 +42,11 @@
 <script>
     import {onMounted} from 'vue';
     import useMovies from '../services/movieService.js';
+    import TopFilms from './TopFilms.vue';
     export default{
+     components: {
+            TopFilms
+        },
         setup() {
             const {movies, getMovies} = useMovies();
             onMounted(getMovies());

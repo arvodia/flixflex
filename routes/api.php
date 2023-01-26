@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/favorie/{id}/remove', [MoviesController::class, 'favorie_remove']);
 });
 Route::get('/movies', [MoviesController::class, 'movies']);
+Route::get('/top_movies', [MoviesController::class, 'top_movies']);
 Route::get('/movie/{id}', [MoviesController::class, 'movie']);
 
 //Route::get('/series', [MoviesController::class, 'series']);
