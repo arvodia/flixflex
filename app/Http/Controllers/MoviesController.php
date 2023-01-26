@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favories;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use function abort;
 use function env;
 use function response;
 
@@ -40,6 +43,67 @@ class MoviesController extends Controller {
         $json = file_get_contents("https://api.themoviedb.org/3/movie/$id?api_key=$key&language=fr-FR");
 
         $result = json_decode($json, true);
+
+        $fav = Favories::where('tmdb_id', $id)->first();
+        $result['is_favorie'] = $fav ? true : false;
         return response()->json($result, 200);
     }
+
+    public function favories(Request $request): JsonResponse {
+        if (!Auth::check()) {
+            abort(403);
+        }
+        $user = Auth::user();
+
+        $result = ['results' => []];
+
+        $favories = Favories::all()->where('user_id', $user->id);
+
+        foreach ($favories as $favorie) {
+            $result['results'][] = [
+                'id' => $favorie->tmdb_id,
+                'title' => $favorie->title,
+                'overview' => $favorie->body,
+                'poster_path' => $favorie->img,
+            ];
+        }
+
+        return response()->json($result, 200);
+    }
+
+    public function favorie_add(string $id): JsonResponse {
+        if (!Auth::check()) {
+            abort(403);
+        }
+        $user = Auth::user();
+
+        $key = env('THEMOVIEDB_KEY');
+        $json = file_get_contents("https://api.themoviedb.org/3/movie/$id?api_key=$key&language=fr-FR");
+
+        $result = json_decode($json, true);
+
+        $fav = Favories::where('tmdb_id', $id)
+                ->where('user_id', $user->id)
+                ->first();
+        if (!$fav) {
+            Favories::create([
+                'tmdb_id' => $id,
+                'title' => $result['title'],
+                'img' => $result['poster_path'],
+                'body' => $result['overview'],
+                'user_id' => $user->id,
+            ]);
+        }
+        return response()->json([], 200);
+    }
+
+    public function favorie_remove(string $id): JsonResponse {
+        if (!Auth::check()) {
+            abort(403);
+        }
+        $user = Auth::user();
+        Favories::where('tmdb_id', $id)->where('user_id', $user->id)->delete();
+        return response()->json([], 200);
+    }
+
 }

@@ -23,6 +23,9 @@ Route::post('register', [AuthController::class, 'register'])->name('register');
 Route::post('login', [AuthController::class, 'authenticate']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/account', [AuthController::class, 'currentUserInfo'])->name('account');
+    Route::get('/favories', [MoviesController::class, 'favories']);
+    Route::get('/favorie/{id}/add', [MoviesController::class, 'favorie_add']);
+    Route::get('/favorie/{id}/remove', [MoviesController::class, 'favorie_remove']);
 });
 Route::get('/movies', [MoviesController::class, 'movies']);
 Route::get('/movie/{id}', [MoviesController::class, 'movie']);
