@@ -2,13 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/var/www/flixflex/resources/js/pages/Favories.vue</file>
-            <file>file:/var/www/flixflex/resources/js/pages/Film.vue</file>
-            <file>file:/var/www/flixflex/app/Http/Controllers/MoviesController.php</file>
-            <file>file:/var/www/flixflex/resources/js/services/favorieService.js</file>
-            <file>file:/var/www/flixflex/resources/js/pages/Films.vue</file>
-            <file>file:/var/www/flixflex/routes/api.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
