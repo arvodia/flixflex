@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('favories', function (Blueprint $table) {
             $table->id();
             $table->string('tmdb_id', 50);
+            $table->string('type', 10);
             $table->string('title', 250);
             $table->string('img', 250);
             $table->longText('body');

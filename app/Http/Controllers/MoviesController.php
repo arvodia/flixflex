@@ -122,11 +122,13 @@ class MoviesController extends Controller {
         $result = json_decode($json, true);
 
         $fav = Favories::where('tmdb_id', $id)
+                ->where('type', 'movie')
                 ->where('user_id', $user->id)
                 ->first();
         if (!$fav) {
             Favories::create([
                 'tmdb_id' => $id,
+                'type' => 'movie',
                 'title' => $result['title'],
                 'img' => $result['poster_path'],
                 'body' => $result['overview'],
@@ -141,7 +143,10 @@ class MoviesController extends Controller {
             abort(403);
         }
         $user = Auth::user();
-        Favories::where('tmdb_id', $id)->where('user_id', $user->id)->delete();
+        Favories::where('tmdb_id', $id)
+                ->where('type', 'movie')
+                ->where('user_id', $user->id)
+                ->delete();
         return response()->json([], 200);
     }
 

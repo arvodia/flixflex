@@ -12,6 +12,7 @@ class Favories extends Model {
     public $timestamps = false;
     protected $fillable = [
         'tmdb_id',
+        'type',
         'title',
         'img',
         'body',
