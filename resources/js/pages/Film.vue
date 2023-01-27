@@ -14,7 +14,7 @@
             <div v-if="movie.trailer">
 
                 <h2 class="text-lg p-3">trailer</h2>
-                <iframe width="420" height="315"
+                <iframe v-if="movie.trailer" width="420" height="315"
                         :src="'https://www.youtube.com/embed/'+movie.trailer">
                 </iframe> 
             </div>

@@ -61,6 +61,7 @@
                 })
                         .then((response) => {
                             if (response.data && response.data.token) {
+                                sessionStorage.setItem("token", response.data.token);
                                 return response.data.token;
                             } else {
                                 this.msg_error = 'impossible de créer une connexion !';

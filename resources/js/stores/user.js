@@ -20,6 +20,7 @@ const useUserStore = defineStore('user', {
         resetState() {
             this.userData = defaulValues;
             this.isAuth = false;
+            sessionStorage.removeItem("token");
         },
         updateData: function (data) {
             for (var item in this.userData) {
