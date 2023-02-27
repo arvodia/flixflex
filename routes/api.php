@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MoviesController;
+use App\Http\Controllers\SearchController;
+use Illuminate\Support\Facades\Route;
 
 /*
   |--------------------------------------------------------------------------
@@ -33,3 +33,5 @@ Route::get('/movie/{id}', [MoviesController::class, 'movie']);
 
 //Route::get('/series', [MoviesController::class, 'series']);
 //Route::get('/serie/{id}', [MoviesController::class, 'serie']);
+
+Route::get('/search-movies', [SearchController::class, 'search_movies']);

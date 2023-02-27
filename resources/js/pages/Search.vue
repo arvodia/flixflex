@@ -10,7 +10,6 @@
                 <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
         </div>
     </form>
-    <TopFilms/>
     <div class="grid p-2 grid-cols-1 gap-1 md:grid-cols-3 md:gap-3">
         <div v-for="movie in movies.results" class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <img class="rounded-t-lg" :src="getImage(movie)" alt="" />
@@ -50,24 +49,31 @@
 
 <script>
     import {onMounted} from 'vue';
-    import useMovies from '../services/movieService.js';
-    import TopFilms from './TopFilms.vue';
+    import useMovies from '../services/searchService.js';
     export default{
-        components: {
-            TopFilms
+        props: {
+            query: {
+                required: true,
+                type: String
+            }
         },
         setup() {
             const {movies, getMovies} = useMovies();
-            onMounted(getMovies());
+//            onMounted();
             return {
                 movies,
                 getMovies,
-                'search':''
+                'search': ''
             };
         },
+        mounted() {
+            this.search = this.query;
+            this.getMovies(1, this.search)
+        },
+
         methods: {
             searchSubmit() {
-                this.$router.push({path: '/search-movie',  query: { q: this.search }});
+                this.getMovies(1, this.search);
             },
             getImage(movie) {
                 return 'https://image.tmdb.org/t/p/w500/' + movie.poster_path;
@@ -77,14 +83,14 @@
                 if (page > this.movies.total_pages) {
                     page = this.movies.total_pages;
                 }
-                this.getMovies(page);
+                this.getMovies(page, this.search);
             },
             prev_page() {
                 var page = Number(this.movies.page) - 1;
                 if (1 > page) {
                     page = 0;
                 }
-                this.getMovies(page);
+                this.getMovies(page, this.search);
             }
         }
     }

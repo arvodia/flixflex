@@ -18,6 +18,7 @@ import Series from "../pages/Series.vue";
 import Register from "../pages/Register.vue";
 import Login from "../pages/Login.vue";
 import Favories from "../pages/Favories.vue";
+import Search from "../pages/Search.vue";
 
 // 2. Define some routes
 // Each route should map to a component.
@@ -33,6 +34,12 @@ const routes = [
         name: "Films",
         component: Films,
         alias: "/films"
+    },
+    {
+        path: "/search-movie",
+        name: "Search",
+        component: Search,
+        props: route => ({query: route.query.q})
     },
     {
         path: "/film/:id",
