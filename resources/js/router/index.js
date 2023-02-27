@@ -19,6 +19,8 @@ import Register from "../pages/Register.vue";
 import Login from "../pages/Login.vue";
 import Favories from "../pages/Favories.vue";
 import Search from "../pages/Search.vue";
+import SearchTv from "../pages/SearchTv.vue";
+import Serie from "../pages/Serie.vue";
 
 // 2. Define some routes
 // Each route should map to a component.
@@ -42,10 +44,22 @@ const routes = [
         props: route => ({query: route.query.q})
     },
     {
+        path: "/search-tv",
+        name: "SearchTv",
+        component: SearchTv,
+        props: route => ({query: route.query.q})
+    },
+    {
         path: "/film/:id",
         props: true,
         name: "Film",
         component: Film,
+    },
+    {
+        path: "/serie/:id",
+        props: true,
+        name: "Serie",
+        component: Serie,
     },
     {
         path: "/series",

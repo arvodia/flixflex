@@ -24,3 +24,6 @@ Route::any('/{any}', function () {
 Route::any('/film/{any}', function () {
     return view('home');
 });
+Route::any('/serie/{any}', function () {
+    return view('home');
+});

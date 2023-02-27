@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\TvController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,12 +27,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/favories', [MoviesController::class, 'favories']);
     Route::get('/favorie/{id}/add', [MoviesController::class, 'favorie_add']);
     Route::get('/favorie/{id}/remove', [MoviesController::class, 'favorie_remove']);
+    Route::get('/favorie_tv/{id}/add', [TvController::class, 'favorie_add']);
+    Route::get('/favorie_tv/{id}/remove', [TvController::class, 'favorie_remove']);
 });
 Route::get('/movies', [MoviesController::class, 'movies']);
 Route::get('/top_movies', [MoviesController::class, 'top_movies']);
 Route::get('/movie/{id}', [MoviesController::class, 'movie']);
 
-//Route::get('/series', [MoviesController::class, 'series']);
-//Route::get('/serie/{id}', [MoviesController::class, 'serie']);
+Route::get('/serie/{id}', [TvController::class, 'serie']);
+Route::get('/series', [TvController::class, 'series']);
+Route::get('/top_tv', [TvController::class, 'top_tv']);
 
 Route::get('/search-movies', [SearchController::class, 'search_movies']);
+Route::get('/search-tv', [SearchController::class, 'search_tv']);
