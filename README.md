@@ -16,7 +16,7 @@ ajouter les clé `THEMOVIEDB_KEY` dans le fichier `.env`
   - /api/movies
   - /api/top_movies
   - /api/movie/{id}
+  - /api/serie
+  - /api/top_tv
+  - /api/serie/{id}
 
-# Improve the project
-  - ajouter la rubrique series
-  - ajouter la rubrique recherche
